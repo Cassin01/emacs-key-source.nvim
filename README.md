@@ -36,7 +36,7 @@ end
 
 ### inc-search()
 
-#### Supports `smartcase` and `ignorecase`
-
+- Supports `smartcase` and `ignorecase`
+- You can replace matched strings by `<ctrl-5>`
 
 ![case](./images/case.gif)
