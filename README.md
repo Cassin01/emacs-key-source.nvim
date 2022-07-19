@@ -1,5 +1,7 @@
 # emacs-key-source.txt
 
+Key sources for Emacs-keybindings that require some arguments.
+
 ## Modules
 
 - `inc-search`: A incremental search [spacemacs `ctrl-s`]
