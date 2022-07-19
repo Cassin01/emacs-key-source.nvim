@@ -1,0 +1,55 @@
+*emacs-key-source.txt*	Sources for emacs-like-keybindings for neovim
+
+Author: Cassin01
+License: MIT license
+
+CONTENTS						*eml-contents*
+
+Introduction		|eml-introduction|
+ Functions		  |eml-functions|
+
+
+==============================================================================
+INTRODUCTION						*eml-introduction*
+
+*emacs-key-source* provides sources for emacs-like-keybindings.
+
+If you don't want to configure plugins, you don't have to use the plugin.
+It does not work with zero configuration.  You can use other plugins.
+
+
+==============================================================================
+INSTALL							*eml-install*
+
+Note: eml.vim requires Neovim (0.7.0+) (latest is
+recommended).
+
+
+==============================================================================
+INTERFACE						*eml-interface*
+
+
+------------------------------------------------------------------------------
+FUNCTIONS 						*eml-functions*
+
+							*eml.goto-line()*
+eml.goto-line()
+		<key>{number}<CR>	goto {number} line
+
+									*eml.relative-jump()*
+eml.relative-jump()
+		<key>{number}{key}	repeat {key} {number} times
+
+							*eml.inc-search()*
+ eml.inc-search()
+		search a word incrementally
+
+									*eml.retrieve_till_tail()*
+ eml.retrieve_till_tail()
+		retrieve chars till tail from the cursor
+
+
+
+							*eml.retrieve_first_half()*
+ eml.retrieve_first_half()
+		retrieve chars till first half tail from the cursor
