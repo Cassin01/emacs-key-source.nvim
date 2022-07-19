@@ -6,7 +6,10 @@ License: MIT license
 CONTENTS						*eml-contents*
 
 Introduction		|eml-introduction|
+Install			|eml-install|
+Interface		|eml-interface|
  Functions		  |eml-functions|
+Examples		|eml-examples|
 
 
 ==============================================================================
@@ -39,6 +42,7 @@ eml.goto-line()
 									*eml.relative-jump()*
 eml.relative-jump()
 		<key>{number}{key}	repeat {key} {number} times
+        {key}	hjkl or <c-p><c-n><c-f><c-b>
 
 							*eml.inc-search()*
  eml.inc-search()
@@ -53,3 +57,17 @@ eml.relative-jump()
 							*eml.retrieve_first_half()*
  eml.retrieve_first_half()
 		retrieve chars till first half tail from the cursor
+
+EXAMPLES						*eml-examples*
+>
+	 local emacs_key_source = require("emacs-key-source")
+	 for k, v in pairs({["<c-s>"] = "inc-search", ["<c-g>"] = "goto-line", ["<c-u>"] = "relative-jump", ["<c-k>"] = "retrive_till_tail", ["<c-s-k>"] = "retrive_first_half"}) do
+	   local function _7_()
+	     return emacs_key_source[v]
+	   end
+	   vim.api.nvim_set_keymap("i", k, "", {callback = _7_, noremap = true, silent = true, desc = v})
+	 end
+<
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:noet:fen:noet:
