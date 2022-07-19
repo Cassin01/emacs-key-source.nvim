@@ -2,11 +2,11 @@
 
 ## Modules
 
-- `inc-search`: A incremental search inspired by spacemacs's `ctrl-s`
-- `goto-line`: goto line inspired by emacs `ctrl-g`
-- `relative-jump`: repleat a allow movement N times. inspired by emacs `ctrl-g`
-- `kill-line2end`: kill line to end (emacs `ctrl-k`)
-- `kill-line2begging`: kill line to begging (emacs `esc-k`)
+- `inc-search`: A incremental search [spacemacs `ctrl-s`]
+- `goto-line`: goto line [emacs `ctrl-u`]
+- `relative-jump`: repleat a allow movement N times. [emacs `ctrl-g`]
+- `kill-line2end`: kill line to end [emacs `ctrl-k`]
+- `kill-line2begging`: kill line to begging [emacs `esc-k`]
 
 ## Install
 
