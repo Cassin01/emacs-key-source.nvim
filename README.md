@@ -29,4 +29,4 @@ end
 #### Supports `smartcase` and `ignorecase`
 
 
-![case](./images/case.mov)
+[case](./images/case.mov)
