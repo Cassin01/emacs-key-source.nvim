@@ -1,4 +1,4 @@
-local _local_1_ = require("core.map.veil.kmp")
+local _local_1_ = require("emacs-key-source.kmp")
 local kmp = _local_1_["kmp"]
 local vf = vim.fn
 local va = vim.api

@@ -1,4 +1,4 @@
-(local {: kmp} (require :core.map.veil.kmp))
+(local {: kmp} (require :emacs-key-source.kmp))
 (macro unless [cond ...]
   `(when (not ,cond) ,...))
 (local vf vim.fn)
