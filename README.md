@@ -5,8 +5,16 @@
 - `inc-search`: A incremental search inspired by spacemacs's `ctrl-s`
 - `goto-line`: goto line inspired by emacs `ctrl-g`
 - `relative-jump`: repleat a allow movement N times. inspired by emacs `ctrl-g`
-- `retrive_till_tail`: kill line to end
-- `retrive_first_half`: kill line to begging
+- `retrive_till_tail`: kill line to end (emacs `ctrl-k`)
+- `retrive_first_half`: kill line to begging (emacs `esc-k`)
+
+## Install
+
+### packer.nvim
+
+```lua
+use { "emacs-key-source.nvim" }
+```
 
 ## Example
 
