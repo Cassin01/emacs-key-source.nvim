@@ -1,6 +1,6 @@
 # emacs-key-source.txt
 
-Key sources for some Emacs-keybindings.
+Key sources for some Emacs-keybindings
 
 ## Modules
 
