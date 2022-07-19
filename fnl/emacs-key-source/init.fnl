@@ -40,14 +40,14 @@
         text_before (if (> col 1) (string.sub line_text 1 (- col 1)) "")]
     (values text_before text_after)))
 
-(local retrive_till_tail
+(local kill-line2end
   (λ []
     (let [(text_before text_after) (split-line-at-point)]
       (if (= (string.len text_after) 0)
         (vim.cmd "normal! J")
         (vf.setline (vf.line :.) text_before)))))
 
-(local retrive_first_half
+(local kill_line2begging
   (λ []
     (let [(_ text_after) (split-line-at-point)]
       (var indent_text "")
@@ -462,5 +462,5 @@
 {: goto-line
  : relative-jump
  : inc-search
- : retrive_till_tail
- : retrive_first_half}
+ : kill-line2end
+ : kill_line2begging}

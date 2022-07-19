@@ -50,7 +50,7 @@ local function split_line_at_point()
   end
   return text_before, text_after
 end
-local retrive_till_tail
+local kill_line2end
 local function _7_()
   local text_before, text_after = split_line_at_point()
   if (string.len(text_after) == 0) then
@@ -59,8 +59,8 @@ local function _7_()
     return vf.setline(vf.line("."), text_before)
   end
 end
-retrive_till_tail = _7_
-local retrive_first_half
+kill_line2end = _7_
+local kill_line2begging
 local function _9_()
   local _, text_after = split_line_at_point()
   local indent_text = ""
@@ -70,7 +70,7 @@ local function _9_()
   vf.setline(vf.line("."), (indent_text .. text_after))
   return vim.cmd("normal! ^")
 end
-retrive_first_half = _9_
+kill_line2begging = _9_
 local goto_line
 local function _10_()
   local cu = vim.fn.win_getid()
@@ -560,4 +560,4 @@ local function _48_()
   return nil
 end
 inc_search = _48_
-return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, retrive_till_tail = retrive_till_tail, retrive_first_half = retrive_first_half}
+return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, ["kill-line2end"] = kill_line2end, kill_line2begging = kill_line2begging}

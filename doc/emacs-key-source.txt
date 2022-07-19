@@ -42,7 +42,7 @@ eml.goto-line()
 									*eml.relative-jump()*
 eml.relative-jump()
 		<key>{number}{key}	repeat {key} {number} times
-        {key}	|hjkl| or <c-p><c-n><c-f><c-b>
+ 		{key}	|hjkl| or <c-p><c-n><c-f><c-b>
 
 							*eml.inc-search()*
  eml.inc-search()
