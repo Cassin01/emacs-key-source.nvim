@@ -560,4 +560,4 @@ local function _48_()
   return nil
 end
 inc_search = _48_
-return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, ["kill-line2end"] = kill_line2end, kill_line2begging = kill_line2begging}
+return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, ["kill-line2end"] = kill_line2end, ["kill-line2begging"] = __fnl_global__kill_2dline2begging}

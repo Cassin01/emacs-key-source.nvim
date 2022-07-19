@@ -463,4 +463,4 @@
  : relative-jump
  : inc-search
  : kill-line2end
- : kill_line2begging}
+ : kill-line2begging}
