@@ -42,21 +42,28 @@ eml.goto-line()
 									*eml.relative-jump()*
 eml.relative-jump()
 		<key>{number}{key}	repeat {key} {number} times
-        {key}	hjkl or <c-p><c-n><c-f><c-b>
+        {key}	|hjkl| or <c-p><c-n><c-f><c-b>
 
 							*eml.inc-search()*
  eml.inc-search()
 		search a word incrementally
+		<c-r>	select previous low
+		<c-s>	select next low
+		<c-o>	end search witut changeing the cursor position
+		<c-m> or <cr>	jump to the selected cursor position
+		<c-f>	preview the position that will be jumped
+		<c-g>{number}<c-(r or s)>	repeat <c-r> or <c-s> {number} times
+		<c-5>	replace the searched word
 
 									*eml.retrieve_till_tail()*
  eml.retrieve_till_tail()
-		retrieve chars till tail from the cursor
+		kill line to end
 
 
 
 							*eml.retrieve_first_half()*
  eml.retrieve_first_half()
-		retrieve chars till first half tail from the cursor
+		kill line to begging
 
 EXAMPLES						*eml-examples*
 >
