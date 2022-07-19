@@ -20,7 +20,7 @@ local function async_f(f)
   local function _2_(...)
     local args = {...}
     local function _3_(callback)
-      _G.assert((nil ~= callback), "Missing argument callback on fnl/emacs-key-source/source.fnl:22")
+      _G.assert((nil ~= callback), "Missing argument callback on fnl/emacs-key-source/init.fnl:22")
       local async = nil
       local function _4_()
         if (args == nil) then
@@ -101,8 +101,8 @@ end
 goto_line = _10_
 local function _guard_cursor_position(win)
   local function _15_(line, col)
-    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/source.fnl:74")
-    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/source.fnl:74")
+    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/init.fnl:74")
+    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/init.fnl:74")
     local _16_
     if (line < 1) then
       _16_ = 1
@@ -281,12 +281,12 @@ local function draw_found(find_pos, c_win, win, target_width, shift, hi_w_summar
 end
 local task_draw
 local function _33_(file_pos, c_win, win, target_width, shift, hi_w_summary)
-  _G.assert((nil ~= hi_w_summary), "Missing argument hi-w-summary on fnl/emacs-key-source/source.fnl:217")
-  _G.assert((nil ~= shift), "Missing argument shift on fnl/emacs-key-source/source.fnl:217")
-  _G.assert((nil ~= target_width), "Missing argument target-width on fnl/emacs-key-source/source.fnl:217")
-  _G.assert((nil ~= win), "Missing argument win on fnl/emacs-key-source/source.fnl:217")
-  _G.assert((nil ~= c_win), "Missing argument c-win on fnl/emacs-key-source/source.fnl:217")
-  _G.assert((nil ~= file_pos), "Missing argument file-pos on fnl/emacs-key-source/source.fnl:217")
+  _G.assert((nil ~= hi_w_summary), "Missing argument hi-w-summary on fnl/emacs-key-source/init.fnl:217")
+  _G.assert((nil ~= shift), "Missing argument shift on fnl/emacs-key-source/init.fnl:217")
+  _G.assert((nil ~= target_width), "Missing argument target-width on fnl/emacs-key-source/init.fnl:217")
+  _G.assert((nil ~= win), "Missing argument win on fnl/emacs-key-source/init.fnl:217")
+  _G.assert((nil ~= c_win), "Missing argument c-win on fnl/emacs-key-source/init.fnl:217")
+  _G.assert((nil ~= file_pos), "Missing argument file-pos on fnl/emacs-key-source/init.fnl:217")
   local args = {file_pos, c_win, win, target_width, shift, hi_w_summary}
   local function _34_()
     local async_draw = async_f(draw_found)
@@ -312,8 +312,8 @@ local function get_first_pos(find_pos, pos)
 end
 local function guard_cursor_position(win)
   local function _36_(line, col)
-    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/source.fnl:239")
-    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/source.fnl:239")
+    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/init.fnl:239")
+    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/init.fnl:239")
     local l
     if (line < 1) then
       l = 1
