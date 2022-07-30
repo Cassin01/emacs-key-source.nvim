@@ -443,7 +443,8 @@
                        (= (va.nvim_get_current_buf) c-buf))
                 (do
                   (fn _replace-escape-char [str]
-                    (str:gsub :/ "\\/"))
+                    (str:gsub :/ "\\/")
+                    (str:gsub :* "\\*"))
                   (vim.cmd (.. "%s/"
                                (_replace-escape-char target)
                                "/"

@@ -538,7 +538,8 @@ local function _48_()
         summary:del(showmode, c_win, id_cpos, preview)
         if ((#alt ~= 0) and (va.nvim_get_current_buf() == c_buf)) then
           local function _replace_escape_char(str)
-            return str:gsub("/", "\\/")
+            str:gsub("/", "\\/")
+            return str:gsub("*", "\\*")
           end
           vim.cmd(("%s/" .. _replace_escape_char(target) .. "/" .. _replace_escape_char(alt) .. "/g"))
           print("replaced ", target, " with ", alt)
