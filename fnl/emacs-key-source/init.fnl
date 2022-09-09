@@ -87,6 +87,7 @@
     (var number? "0")
     (var done? false)
     (while (not done?)
+      (print (. vim.o :cmdheight)) ; FIXME
       (when (vf.getchar true)
         (let [nr (vf.getchar)]
           (if (and (>= nr 48) (<= nr 57)) ; nr: 0~9
