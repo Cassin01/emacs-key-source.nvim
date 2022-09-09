@@ -87,7 +87,6 @@
     (var number? "0")
     (var done? false)
     (while (not done?)
-      ; (vim.cmd "echom &cmdheight") ; DEBUG
       (when (vf.getchar true)
         (let [nr (vf.getchar)]
           (if (and (>= nr 48) (<= nr 57)) ; nr: 0~9
@@ -339,6 +338,7 @@
     (var find-pos [])
     (var view-lines [])
     (while (not done?)
+      (vim.cmd "echom &cmdheight") ; DEBUG
       ; (echo (.. "line: " (. pos 1) "/" (vf.line :$ win) ", input: " target))
       (echo (concat-with
               ", "
