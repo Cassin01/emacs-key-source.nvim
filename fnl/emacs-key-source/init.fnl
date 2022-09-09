@@ -326,7 +326,7 @@
                       (if (not= cmdheight nil)
                         cmdheight
                         1)))
-    (tset vim.o :cmdheight 1)
+    (va.nvim_set_option :cmdheight 1)
 
     (local hi-c-jump :IncSearch)
     (local hi-w-summary :Substitute)
