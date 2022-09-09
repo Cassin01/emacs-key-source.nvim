@@ -339,6 +339,7 @@
     (var view-lines [])
     (while (not done?)
       (vim.cmd "echom &cmdheight") ; DEBUG
+      (print "huga")
       ; (echo (.. "line: " (. pos 1) "/" (vf.line :$ win) ", input: " target))
       (echo (concat-with
               ", "
