@@ -312,6 +312,7 @@
                         cmdheight
                         1)))
     (va.nvim_set_option :cmdheight 1)
+    (:reutrn)
 
     (local c-buf (va.nvim_get_current_buf))
     (local c-win (va.nvim_get_current_win))
@@ -351,8 +352,6 @@
               ; "c-g{number}: jump to line"
               ; "c-5: substitute"))
       (when (vf.getchar true)
-        (vim.cmd "echom &cmdheight") ; DEBUG
-        (print "huga")
         (let [nr (vf.getchar)]
           ; (vf.clearmatches win)
           (vf.clearmatches summary.win)
