@@ -338,8 +338,6 @@
     (var find-pos [])
     (var view-lines [])
     (while (not done?)
-      (vim.cmd "echom &cmdheight") ; DEBUG
-      (print "huga")
       ; (echo (.. "line: " (. pos 1) "/" (vf.line :$ win) ", input: " target))
       (echo (concat-with
               ", "
@@ -353,6 +351,8 @@
               ; "c-g{number}: jump to line"
               ; "c-5: substitute"))
       (when (vf.getchar true)
+        (vim.cmd "echom &cmdheight") ; DEBUG
+        (print "huga")
         (let [nr (vf.getchar)]
           ; (vf.clearmatches win)
           (vf.clearmatches summary.win)
