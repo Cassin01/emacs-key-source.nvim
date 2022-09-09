@@ -306,13 +306,11 @@
 
 (local inc-search
   (λ []
-    (local c-buf (va.nvim_get_current_buf))
-    (local c-win (va.nvim_get_current_win))
-    (local lines (va.nvim_buf_get_lines c-buf 0 (vf.line :$ c-win) true))
-    (local c-pos (va.nvim_win_get_cursor c-win))
-
-    (local summary (Summary:new c-buf c-win (- vim.o.lines 4)))
-    (local preview (Preview:new c-buf c-win (- vim.o.lines 4)))
+    ;; set cmdheight=1
+    (local cmdheight (let [cmdheight (. vim.o :cmdheight)]
+                      (if (not= cmdheight nil)
+                        cmdheight
+                        1)))
 
     ;; prevent flicking on echo
     (local showmode (let [showmode (. vim.o :showmode)]
@@ -321,12 +319,14 @@
                         true)))
     (tset vim.o :showmode false)
 
-    ;; set cmdheight=1
-    (local cmdheight (let [cmdheight (. vim.o :cmdheight)]
-                      (if (not= cmdheight nil)
-                        cmdheight
-                        1)))
     (va.nvim_set_option :cmdheight 1)
+    (local c-buf (va.nvim_get_current_buf))
+    (local c-win (va.nvim_get_current_win))
+    (local lines (va.nvim_buf_get_lines c-buf 0 (vf.line :$ c-win) true))
+    (local c-pos (va.nvim_win_get_cursor c-win))
+
+    (local summary (Summary:new c-buf c-win (- vim.o.lines 4)))
+    (local preview (Preview:new c-buf c-win (- vim.o.lines 4)))
 
     (local hi-c-jump :IncSearch)
     (local hi-w-summary :Substitute)
