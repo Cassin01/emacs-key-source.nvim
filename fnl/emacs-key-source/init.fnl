@@ -87,7 +87,7 @@
     (var number? "0")
     (var done? false)
     (while (not done?)
-      (vim.cmd "echom &cmdheight") ; FIXME
+      ; (vim.cmd "echom &cmdheight") ; DEBUG
       (when (vf.getchar true)
         (let [nr (vf.getchar)]
           (if (and (>= nr 48) (<= nr 57)) ; nr: 0~9
@@ -312,15 +312,8 @@
                       (if (not= cmdheight nil)
                         cmdheight
                         1)))
-
-    ;; prevent flicking on echo
-    (local showmode (let [showmode (. vim.o :showmode)]
-                      (if (not= showmode nil)
-                        showmode
-                        true)))
-    (tset vim.o :showmode false)
-
     (va.nvim_set_option :cmdheight 1)
+
     (local c-buf (va.nvim_get_current_buf))
     (local c-win (va.nvim_get_current_win))
     (local lines (va.nvim_buf_get_lines c-buf 0 (vf.line :$ c-win) true))
@@ -328,6 +321,13 @@
 
     (local summary (Summary:new c-buf c-win (- vim.o.lines 4)))
     (local preview (Preview:new c-buf c-win (- vim.o.lines 4)))
+
+    ;; prevent flicking on echo
+    (local showmode (let [showmode (. vim.o :showmode)]
+                      (if (not= showmode nil)
+                        showmode
+                        true)))
+    (tset vim.o :showmode false)
 
     (local hi-c-jump :IncSearch)
     (local hi-w-summary :Substitute)
