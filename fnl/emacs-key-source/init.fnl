@@ -60,11 +60,11 @@
   (λ []
     (let [cu (vim.fn.win_getid)
           [x y] (vim.api.nvim_win_get_cursor cu)
-          n (math.floor (or (tonumber (vim.fn.input "Goto line: "))
-                            (do (echo (.. "Could not cast '" (tostring n) "' to number.'")) x)))
+          n (tonumber (vim.fn.input "Goto line: "))
+          n (math.floor (or n (do (echo (.. "Could not cast '" (tostring n) "' to number.'")) x)))
           n (if (> n (vim.fn.line :$)) (vim.fn.line :$) n)
           n (if (< n 1) 1 n)]
-      (echo (tostring (vim.fn.line $)))
+      (echo (tostring (vim.fn.line :$)))
       (vim.api.nvim_win_set_cursor cu [n y]))))
 
 ;;; Ctrl-u {{{
@@ -293,8 +293,8 @@
                          (tset self :win win)
                          (va.nvim_win_set_option win :foldenable false)
                          ; (va.nvim_win_set_option win :wrap false)
-                         (va.nvim_win_set_option win :scrolloff 999))
-                       (vf.win_execute win "set winhighlight=Normal:Comment")
+                         (va.nvim_win_set_option win :scrolloff 999)
+                         (vf.win_execute win "set winhighlight=Normal:Comment"))
                        self)
                 :del (fn [self showmode c-win c-ids preview]
                        (_ender self.win self.buf showmode c-win c-ids preview))
