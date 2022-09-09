@@ -47,7 +47,7 @@
         (vim.cmd "normal! J")
         (vf.setline (vf.line :.) text_before)))))
 
-(local kill_line2begging
+(local kill-line2begging
   (λ []
     (let [(_ text_after) (split-line-at-point)]
       (var indent_text "")
@@ -221,11 +221,12 @@
                        (a.wait ((a.wrap (async-draw (unpack args)))))
                        (vim.cmd "redraw!")))))
 
-(fn _ender [win buf showmode c-win c-ids preview]
+(fn _ender [win buf showmode cmdheight c-win c-ids preview]
   (preview:del)
   (va.nvim_win_close win true)
   (va.nvim_buf_delete buf {:force true})
   (va.nvim_set_option :showmode showmode)
+  (va.nvim_set_option :cmdheight cmdheight)
   (del-matches c-ids c-win))
 
 (fn get-first-pos [find-pos pos]
@@ -296,8 +297,8 @@
                          (va.nvim_win_set_option win :scrolloff 999)
                          (vf.win_execute win "set winhighlight=Normal:Comment"))
                        self)
-                :del (fn [self showmode c-win c-ids preview]
-                       (_ender self.win self.buf showmode c-win c-ids preview))
+                :del (fn [self showmode cmdheight c-win c-ids preview]
+                       (_ender self.win self.buf showmode cmdheight c-win c-ids preview))
                 :update (fn [self view-lines]
                           (va.nvim_buf_set_lines self.buf 0 -1 true view-lines))
                 :win nil
@@ -310,8 +311,8 @@
     (local lines (va.nvim_buf_get_lines c-buf 0 (vf.line :$ c-win) true))
     (local c-pos (va.nvim_win_get_cursor c-win))
 
-    (local summary (Summary:new c-buf c-win (- vim.o.lines 5)))
-    (local preview (Preview:new c-buf c-win (- vim.o.lines 5)))
+    (local summary (Summary:new c-buf c-win (- vim.o.lines 4)))
+    (local preview (Preview:new c-buf c-win (- vim.o.lines 4)))
 
     ;; prevent flicking on echo
     (local showmode (let [showmode (. vim.o :showmode)]
@@ -319,6 +320,13 @@
                         showmode
                         true)))
     (tset vim.o :showmode false)
+
+    ;; set cmdheight=1
+    (local cmdheight (let [cmdheight (. vim.o :cmdheight)]
+                      (if (not= cmdheight nil)
+                        cmdheight
+                        1)))
+    (tset vim.o :cmdheight 1)
 
     (local hi-c-jump :IncSearch)
     (local hi-w-summary :Substitute)
@@ -344,7 +352,7 @@
               ; "c-5: substitute"))
       (when (vf.getchar true)
         (let [nr (vf.getchar)]
-          (vf.clearmatches win)
+          ; (vf.clearmatches win)
           (vf.clearmatches summary.win)
           (unless (= id-cpos nil)
             (del-matches id-cpos c-win)
@@ -394,7 +402,7 @@
 
           (when (= nr 13) ; cr
             (set done? true)
-            (summary:del showmode c-win id-cpos preview)
+            (summary:del showmode cmdheight c-win id-cpos preview)
             (let [pos (get-first-pos find-pos pos)]
               (unless (= pos nil)
                 ;; FIXME: Could not jump to proper position when window was slitted.
@@ -403,7 +411,7 @@
                 (va.nvim_set_current_win c-win))))
           (when (= nr 27) ; esc
             (set done? true)
-            (summary:del showmode c-win id-cpos preview)
+            (summary:del showmode cmdheight c-win id-cpos preview)
             (va.nvim_win_set_cursor c-win c-pos)
             (va.nvim_set_current_win c-win))
           (when (= nr 6) ; ctrl-f (focus)
@@ -438,7 +446,7 @@
           (when (= nr (rt "<c-5>")) ; <M-%>
             (set done? true)
             (let [alt (vim.fn.input (.. "Query replace " target " with: "))]
-              (summary:del showmode c-win id-cpos preview)
+              (summary:del showmode cmdheight c-win id-cpos preview)
               (if (and (not= (length alt) 0)
                        (= (va.nvim_get_current_buf) c-buf))
                 (do
