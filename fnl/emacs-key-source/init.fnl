@@ -112,11 +112,11 @@
 (fn _win-open [row height col]
   (let [buf (va.nvim_create_buf false true)
         win (va.nvim_open_win buf true {:col col
-                                        :row row
+                                        :row (+ row 1)
                                         :relative :editor
                                         :anchor :NW
                                         :style :minimal
-                                        :height (- height 1)
+                                        :height height
                                         :width (math.floor (-> vim.o.columns (/ 2) (- 2)))
                                         :focusable false
                                         :border :rounded})]
