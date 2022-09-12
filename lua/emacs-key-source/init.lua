@@ -77,26 +77,27 @@ local function _10_()
   local _let_11_ = vim.api.nvim_win_get_cursor(cu)
   local x = _let_11_[1]
   local y = _let_11_[2]
-  local n
+  local n = tonumber(vim.fn.input("Goto line: "))
+  local n0
   local function _12_()
     echo(("Could not cast '" .. tostring(n) .. "' to number.'"))
     return x
   end
-  n = math.floor((tonumber(vim.fn.input("Goto line: ")) or _12_()))
-  local n0
-  if (n > vim.fn.line("$")) then
-    n0 = vim.fn.line("$")
-  else
-    n0 = n
-  end
+  n0 = math.floor((n or _12_()))
   local n1
-  if (n0 < 1) then
-    n1 = 1
+  if (n0 > vim.fn.line("$")) then
+    n1 = vim.fn.line("$")
   else
     n1 = n0
   end
-  echo(tostring(vim.fn.line(__fnl_global___24)))
-  return vim.api.nvim_win_set_cursor(cu, {n1, y})
+  local n2
+  if (n1 < 1) then
+    n2 = 1
+  else
+    n2 = n1
+  end
+  echo(tostring(vim.fn.line("$")))
+  return vim.api.nvim_win_set_cursor(cu, {n2, y})
 end
 goto_line = _10_
 local function _guard_cursor_position(win)
@@ -296,11 +297,12 @@ local function _33_(file_pos, c_win, win, target_width, shift, hi_w_summary)
   return a.sync(_34_)
 end
 task_draw = _33_
-local function _ender(win, buf, showmode, c_win, c_ids, preview)
+local function _ender(win, buf, showmode, cmdheight, c_win, c_ids, preview)
   preview:del()
   va.nvim_win_close(win, true)
   va.nvim_buf_delete(buf, {force = true})
   va.nvim_set_option("showmode", showmode)
+  va.nvim_set_option("cmdheight", cmdheight)
   return del_matches(c_ids, c_win)
 end
 local function get_first_pos(find_pos, pos)
@@ -312,8 +314,8 @@ local function get_first_pos(find_pos, pos)
 end
 local function guard_cursor_position(win)
   local function _36_(line, col)
-    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/init.fnl:239")
-    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/init.fnl:239")
+    _G.assert((nil ~= col), "Missing argument col on fnl/emacs-key-source/init.fnl:240")
+    _G.assert((nil ~= line), "Missing argument line on fnl/emacs-key-source/init.fnl:240")
     local l
     if (line < 1) then
       l = 1
@@ -381,12 +383,12 @@ local function _45_(self, c_buf, c_win, height)
     self["win"] = win
     va.nvim_win_set_option(win, "foldenable", false)
     va.nvim_win_set_option(win, "scrolloff", 999)
+    vf.win_execute(win, "set winhighlight=Normal:Comment")
   end
-  vf.win_execute(win, "set winhighlight=Normal:Comment")
   return self
 end
-local function _46_(self, showmode, c_win, c_ids, preview)
-  return _ender(self.win, self.buf, showmode, c_win, c_ids, preview)
+local function _46_(self, showmode, cmdheight, c_win, c_ids, preview)
+  return _ender(self.win, self.buf, showmode, cmdheight, c_win, c_ids, preview)
 end
 local function _47_(self, view_lines)
   return va.nvim_buf_set_lines(self.buf, 0, -1, true, view_lines)
@@ -394,6 +396,16 @@ end
 Summary = {new = _45_, del = _46_, update = _47_, win = nil, buf = nil}
 local inc_search
 local function _48_()
+  local cmdheight
+  do
+    local cmdheight0 = vim.o.cmdheight
+    if (cmdheight0 ~= nil) then
+      cmdheight = cmdheight0
+    else
+      cmdheight = 1
+    end
+  end
+  va.nvim_set_option("cmdheight", 1)
   local c_buf = va.nvim_get_current_buf()
   local c_win = va.nvim_get_current_win()
   local lines = va.nvim_buf_get_lines(c_buf, 0, vf.line("$", c_win), true)
@@ -422,7 +434,6 @@ local function _48_()
     echo(concat_with0(", ", ("input: " .. target), ("line: " .. pos[1] .. "/" .. vf.line("$", summary.win))))
     if vf.getchar(true) then
       local nr = vf.getchar()
-      vf.clearmatches(win)
       vf.clearmatches(summary.win)
       if not (id_cpos == nil) then
         del_matches(id_cpos, c_win)
@@ -472,7 +483,7 @@ local function _48_()
       end
       if (nr == 13) then
         done_3f = true
-        summary:del(showmode, c_win, id_cpos, preview)
+        summary:del(showmode, cmdheight, c_win, id_cpos, preview)
         local pos0 = get_first_pos(find_pos, pos)
         if not (pos0 == nil) then
           va.nvim_win_set_cursor(c_win, pos0)
@@ -483,7 +494,7 @@ local function _48_()
       end
       if (nr == 27) then
         done_3f = true
-        summary:del(showmode, c_win, id_cpos, preview)
+        summary:del(showmode, cmdheight, c_win, id_cpos, preview)
         va.nvim_win_set_cursor(c_win, c_pos)
         va.nvim_set_current_win(c_win)
       else
@@ -535,7 +546,7 @@ local function _48_()
       if (nr == rt("<c-5>")) then
         done_3f = true
         local alt = vim.fn.input(("Query replace " .. target .. " with: "))
-        summary:del(showmode, c_win, id_cpos, preview)
+        summary:del(showmode, cmdheight, c_win, id_cpos, preview)
         if ((#alt ~= 0) and (va.nvim_get_current_buf() == c_buf)) then
           local function _replace_escape_char(str)
             str:gsub("/", "\\/")
@@ -561,4 +572,4 @@ local function _48_()
   return nil
 end
 inc_search = _48_
-return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, ["kill-line2end"] = kill_line2end, ["kill-line2begging"] = __fnl_global__kill_2dline2begging}
+return {["goto-line"] = goto_line, ["relative-jump"] = relative_jump, ["inc-search"] = inc_search, ["kill-line2end"] = kill_line2end, ["kill-line2begging"] = kill_line2begging}

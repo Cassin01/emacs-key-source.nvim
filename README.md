@@ -15,7 +15,7 @@ Key sources for some Emacs-keybindings
 ### packer.nvim
 
 ```lua
-use { 
+use {
   'emacs-key-source.nvim'
   requires = { 'ms-jpq/lua-async-await' }
 }
