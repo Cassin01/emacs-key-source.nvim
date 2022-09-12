@@ -116,7 +116,7 @@
                                         :relative :editor
                                         :anchor :NW
                                         :style :minimal
-                                        :height height
+                                        :height (- height 1)
                                         :width (math.floor (-> vim.o.columns (/ 2) (- 2)))
                                         :focusable false
                                         :border :rounded})]

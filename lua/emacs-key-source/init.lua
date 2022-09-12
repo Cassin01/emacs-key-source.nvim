@@ -167,7 +167,7 @@ end
 relative_jump = _19_
 local function _win_open(row, height, col)
   local buf = va.nvim_create_buf(false, true)
-  local win = va.nvim_open_win(buf, true, {col = col, row = row, relative = "editor", anchor = "NW", style = "minimal", height = height, width = math.floor(((vim.o.columns / 2) - 2)), focusable = false, border = "rounded"})
+  local win = va.nvim_open_win(buf, true, {col = col, row = row, relative = "editor", anchor = "NW", style = "minimal", height = (height - 1), width = math.floor(((vim.o.columns / 2) - 2)), focusable = false, border = "rounded"})
   va.nvim_win_set_option(win, "winblend", 20)
   return buf, win
 end
